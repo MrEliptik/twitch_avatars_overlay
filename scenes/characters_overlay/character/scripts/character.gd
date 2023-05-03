@@ -45,7 +45,13 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity
 
-	velocity = move_and_slide_with_snap(velocity, Vector2.UP, Vector2.UP, true, 4, deg2rad(60), true)
+	var velocity_before_collision: Vector2 = velocity
+	velocity = move_and_slide_with_snap(velocity, Vector2.DOWN, Vector2.UP, true, 4, deg2rad(60), true)
+	for i in range(get_slide_count()):
+		var collision = get_slide_collision(i)
+		if not collision.collider.is_in_group("Walls"): continue
+		velocity = velocity_before_collision.bounce(collision.normal)
+		break
 	
 func load_avatars():
 	var path = "res://visuals/avatars"

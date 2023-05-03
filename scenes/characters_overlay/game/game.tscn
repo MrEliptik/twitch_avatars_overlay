@@ -308,7 +308,7 @@ margin_right = 228.0
 margin_bottom = 207.0
 mouse_filter = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Walls"]]
 position = Vector2( 960, 1070 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
