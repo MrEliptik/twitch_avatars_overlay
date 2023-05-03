@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/tests/test_chat.gd" type="Script" id=1]
+[ext_resource path="res://addons/gift/gift_node.gd" type="Script" id=2]
+[ext_resource path="res://scenes/chatConnection.tscn" type="PackedScene" id=3]
+
+[node name="TestChat" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -297.0
+margin_top = -407.0
+margin_right = 297.0
+margin_bottom = 407.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+
+[node name="Gift" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="ChatConnection" parent="." instance=ExtResource( 3 )]
+
+[connection signal="chat_message" from="Gift" to="." method="_on_Gift_chat_message"]
+[connection signal="connect_pressed" from="ChatConnection" to="." method="_on_ChatConnection_connect_pressed"]
