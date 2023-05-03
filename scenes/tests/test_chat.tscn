@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scripts/tests/test_chat.gd" type="Script" id=1]
+[ext_resource path="res://scenes/tests/test_chat.gd" type="Script" id=1]
 [ext_resource path="res://addons/gift/gift_node.gd" type="Script" id=2]
-[ext_resource path="res://scenes/chatConnection.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/chat_connection/chatConnection.tscn" type="PackedScene" id=3]
 
 [node name="TestChat" type="Control"]
 anchor_right = 1.0
