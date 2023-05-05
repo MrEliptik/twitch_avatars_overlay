@@ -4,6 +4,8 @@ Overlay made with Godot, for [Twitch](https://twitch.tv/mreliptik).
 
 *This project is not meant to be used as is by others. It's not really configurable. It's meant to be used only by me, but I make it open source as it can be useful for some people and it allows you to contribute.*
 
+![overlay screenshot](medias/overlay.png)
+
 ## HOW TO CONTRIBUTE
 
 If you want to contribute, please open an issue before, or join my [Discord](https://discord.gg/83nFRPTP6t) to discuss it!
