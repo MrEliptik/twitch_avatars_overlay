@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://visuals/avatars/Basic.png" type="Texture" id=1]
 [ext_resource path="res://scenes/characters_overlay/character/scripts/character.gd" type="Script" id=2]
@@ -10,9 +10,21 @@ radius = 17.0
 height = 0.0
 
 [sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform vec4 color: hint_color;
+uniform float mix_val: hint_range(0.0, 1.0, 0.01);
+
+void fragment() {
+	vec4 in_tex = texture(TEXTURE, UV);
+	COLOR.rgb = mix(in_tex.rgb, color.rgb, mix_val);
+	COLOR.a = in_tex.a;
+}"
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = SubResource( 5 )
+shader_param/color = Color( 1, 0.721569, 0, 1 )
+shader_param/mix_val = 0.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
@@ -214,6 +226,85 @@ corner_radius_bottom_left = 3
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 19, 19 )
 
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BasicAvatar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BasicAvatar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -13 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BasicAvatar:material:shader_param/mix_val")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "find"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("BasicAvatar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 2.4 ),
+"transitions": PoolRealArray( -2, -2, -2 ),
+"update": 0,
+"values": [ Vector2( 0.2, 0.2 ), Vector2( 0.304, 0.304 ), Vector2( 0.2, 0.2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BasicAvatar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7, 2.4 ),
+"transitions": PoolRealArray( -2, -2, -2 ),
+"update": 0,
+"values": [ Vector2( 0, -13 ), Vector2( 0, -24.529 ), Vector2( 0, -13 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BasicAvatar:material:shader_param/mix_val")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7, 2.4 ),
+"transitions": PoolRealArray( -2, -2, -2 ),
+"update": 0,
+"values": [ 0.0, 0.7, 0.0 ]
+}
+
 [node name="Character" type="KinematicBody2D" groups=["Characters"]]
 collision_layer = 0
 input_pickable = true
@@ -313,6 +404,10 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickingArea"]
 position = Vector2( 0, -5 )
 shape = SubResource( 12 )
+
+[node name="FindAnimPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 14 )
+anims/find = SubResource( 13 )
 
 [connection signal="input_event" from="." to="." method="_on_Character_input_event"]
 [connection signal="timeout" from="Message/MessageTimer" to="." method="_on_MessageTimer_timeout"]

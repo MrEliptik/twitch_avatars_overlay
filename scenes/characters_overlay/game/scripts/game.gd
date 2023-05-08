@@ -209,6 +209,16 @@ func reset_viewer(user):
 	
 	children[idx].reset()
 
+func viewer_find(user):
+	var children = $Characters.get_children()
+	var viewer_names = []
+	for child in children:
+		viewer_names.append(child.username)
+		
+	var idx = viewer_names.find(user)
+	if idx == -1: return
+	
+	children[idx].find()
 
 ############### GIFT SIGNALS ##################
 # Enter chat signal
@@ -243,6 +253,9 @@ func on_viewer_speed(cmd_info : CommandInfo, arg_arr : PoolStringArray):
 func on_viewer_say(cmd_info : CommandInfo, arg_arr : PoolStringArray):
 	viewer_say(cmd_info.sender_data.user, arg_arr)
 
+func on_viewer_findme(cmd_info : CommandInfo):
+	viewer_find(cmd_info.sender_data.user)
+
 func _on_ChatConnection_connect_pressed(nick_text, auth_text) -> void:
 	# Connecting to twitch with the websocket, no credentials required
 	gift.connect_to_twitch()
@@ -261,6 +274,8 @@ func _on_ChatConnection_connect_pressed(nick_text, auth_text) -> void:
 	gift.join_channel("mreliptik")
 	gift.add_command("join", self, "on_viewer_join")
 	gift.add_command("leave", self, "on_viewer_leave")
+	gift.add_command("findme", self, "on_viewer_findme", 0, 0, 
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("reset", self, "on_viewer_reset", 0, 0, 
 		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
 	gift.add_command("color", self, "on_viewer_color", 1, 1, 

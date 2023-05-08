@@ -78,7 +78,11 @@ func say(msg: String):
 func jump():
 	velocity.y = -jump_force
 	$AnimationPlayer.play("jump")
-
+	
+func find():
+	say("I'm here!")
+	$FindAnimPlayer.play("find")
+	
 func set_level(level_val: int) -> void:
 	level = level_val
 	lvl_label.text = str(level_val)
