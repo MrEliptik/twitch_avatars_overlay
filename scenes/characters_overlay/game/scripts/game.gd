@@ -100,7 +100,7 @@ func spawn_viewers(viewers: Array, display_username: bool = false) -> int:
 			$BotTimer.start()
 		
 		if not users.user_exist(viewer):
-			users.create_user(viewer, instance.color, true, display_username, 0, 0.0)
+			users.create_user(viewer, instance.color, true, display_username)
 		else:
 #			instance.set_color(users.get_user_color(viewer))
 			users.update_user(viewer, null, true, null)
@@ -277,15 +277,25 @@ func _on_ChatConnection_connect_pressed(nick_text, auth_text) -> void:
 	gift.add_command("findme", self, "on_viewer_findme", 0, 0, 
 		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("reset", self, "on_viewer_reset", 0, 0, 
-		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("color", self, "on_viewer_color", 1, 1, 
-		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("jump", self, "on_viewer_jump", 0, 0, 
-		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("speed", self, "on_viewer_speed", 1, 1, 
-		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
 	gift.add_command("say", self, "on_viewer_say", 10, 1, 
-		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+		gift.PermissionFlag.EVERYONE, gift.WhereFlag.CHAT)
+#	gift.add_command("reset", self, "on_viewer_reset", 0, 0, 
+#		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+#	gift.add_command("color", self, "on_viewer_color", 1, 1, 
+#		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+#	gift.add_command("jump", self, "on_viewer_jump", 0, 0, 
+#		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+#	gift.add_command("speed", self, "on_viewer_speed", 1, 1, 
+#		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
+#	gift.add_command("say", self, "on_viewer_say", 10, 1, 
+#		gift.PermissionFlag.EVERYONE, gift.WhereFlag.WHISPER)
 
 func _on_Gift_whisper_message(sender_data, message) -> void:
 	print(sender_data.user + ": " + message)
