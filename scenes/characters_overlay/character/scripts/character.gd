@@ -3,7 +3,7 @@ extends KinematicBody2D
 var gravity := 5.0
 #var speed := 500.0
 var speed := 100.0
-var jump_force := 500.0
+var jump_force := 300.0
 var max_speed := 150.0
 var min_speed := 0.0
 var velocity := Vector2.ZERO
@@ -11,7 +11,7 @@ var username: String = ""
 var color: Color
 var level: int = 0.0
 var experience: float = 0.0
-var level_threshold: float = 2000.0
+var level_threshold: float = 3000.0
 
 var initial_pos: Vector2
 
@@ -115,7 +115,7 @@ func add_xp(value) -> void:
 	Globals.users.save_users()
 
 func push(impulse: Vector2) -> void:
-	velocity += impulse * 0.1
+	velocity += impulse * 0.04
 
 func _on_Timer_timeout() -> void:
 	$Timer.start(rand_range(4, 10))
