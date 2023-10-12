@@ -31,7 +31,9 @@ func _ready() -> void:
 func read_crendentials() -> Dictionary:
 	var credentials = {"username": "", "oauth": ""}
 	var file = File.new()
-	file.open("res://twitch_credentials.txt", File.READ)
+	if file.open("res://twitch_credentials.txt", File.READ) != OK:
+		print("Credentials file doesn't exist")
+		return {}
 
 	var index = 0
 	while not file.eof_reached(): # iterate through all lines until the end of file is reached
