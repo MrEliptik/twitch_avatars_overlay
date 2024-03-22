@@ -41,15 +41,20 @@ func is_viewer_showing_username(username: String):
 func get_viewer_level(username: String) -> int:
 	for u in users:
 		if u["username"] == username:
-			if u.has("level"): return u["level"]
-		return 0
+			print("User found.. checking for level")
+			if u.has("level"):
+				print("User found, xp: ", u["level"])
+				return u["level"]
+			return 0
 	return 0
 	
 func get_viewer_experience(username: String) -> float:
 	for u in users:
 		if u["username"] == username:
-			if u.has("experience"): return u["experience"]
-		return 0.0
+			if u.has("experience"): 
+				print("User found, xp: ", u["experience"])
+				return u["experience"]
+			return 0.0
 	return 0.0
 	
 func get_user_color(username: String):
@@ -64,12 +69,20 @@ func create_user(username: String, color: Color, join_overlay: bool, display_use
 	new_user["join_overlay"] = join_overlay
 	new_user["display_username"] = display_username
 	new_user["level"] = 0
-	new_user["level_experience"] = 0.0
+	new_user["experience"] = 0.0
 	users.append(new_user)
 	
 func update_user(username: String, color, join_overlay: bool, display_username, level: int=-1, experience: float=-1.0):
 	for u in users:
 		if u["username"] == username:
+			
+			# Create experience and level if they don't have the key
+			# it will be updated later
+			if not u.has("level"):
+				u["level"] = 0
+			if not u.has("experience"):
+				u["experience"] = 0.0
+			
 			if color:
 				u["color"] = color
 			if join_overlay:

@@ -107,8 +107,10 @@ func spawn_viewers(viewers: Array, display_username: bool = false) -> int:
 #			instance.set_color(users.get_user_color(viewer))
 			users.update_user(viewer, null, true, null)
 		
-		instance.set_level(users.get_viewer_level(viewer))
-		instance.experience = users.get_viewer_experience(viewer)
+		var user_level: int = users.get_viewer_level(viewer)
+		instance.set_level(user_level)
+		var user_exp: float = users.get_viewer_experience(viewer)
+		instance.experience = user_exp
 		instance.set_username_visibility(users.is_viewer_showing_username(viewer))
 		viewers_added += 1
 	users.save_users()
@@ -241,7 +243,7 @@ func _on_Gift_user_join(sender_data) -> void:
 
 # Exit chat signal
 func _on_Gift_user_part(sender_data) -> void:
-	if !users.is_viewer_joining(sender_data.user): return
+#	if !users.is_viewer_joining(sender_data.user): return
 	despawn_viewers([sender_data.user])
 	
 ############### CHAT COMMANDS ##################
